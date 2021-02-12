@@ -4,7 +4,7 @@ const fetchBreedDescription = (catBreed, callback) => {
   const caturday = "https://api.thecatapi.com/v1/breeds/search?q=" + catBreed;
   request(caturday, (error, response, body) => {
     if (error) {
-      return callback(true, error);
+      return callback(error, null);
     }
     if (response.statusCode !== 200) {
       return callback(true,
@@ -14,7 +14,7 @@ const fetchBreedDescription = (catBreed, callback) => {
       const data = JSON.parse(body);
       return callback(false, data[0].description);
     } catch (err) {
-      return callback(true, `Description for ${catBreed} not found`);
+      return callback(null);
     }
   });
 };
